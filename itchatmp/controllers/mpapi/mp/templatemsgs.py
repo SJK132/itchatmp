@@ -64,11 +64,12 @@ def get_templates(accessToken=None):
 
 def send(templateId, msgDict, toUserId, accessToken=None):
     ''' send template to your massive platform users '''
-    msgDict = copy.deepcopy(msgDict)
-    msgDict['touser'], msgDict['template_id'] = toUserId, templateId
+    url = msgDict.pop('url', None)
+    msgDict['data'] = copy.deepcopy(msgDict)
+    msgDict['touser'], msgDict['template_id'], msgDict['url'] = toUserId, templateId, url
     data = encode_send_dict(msgDict)
     if data is None: return ReturnValue({'errcode': -10001})
-    r = requests.post('%s/cgi-bin/template/del_private_template?access_token=%s' % 
+    r = requests.post('%s/cgi-bin/message/template/send?access_token=%s' %
         (SERVER_URL, accessToken), data=data)
     def _wrap_result(result):
         return ReturnValue(result.json())

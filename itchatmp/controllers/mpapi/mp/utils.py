@@ -25,14 +25,15 @@ def create_qrcode(sceneData, expire=2592000, accessToken=None):
             'sceneData should be int or string'})
 
     if expire:
-        if not isinstance(sceneData, int):
-            return ReturnValue({'errcode': -10003, 'errmsg':
-                'sceneData for tmp qrcode can only be int'})
         if not 0 < expire < 2592000:
             expire = 2592000
         data['expire_seconds'] = expire
-        data['action_name'] = 'QR_SCENE'
-        data['action_info']['scene']['scene_id'] = sceneData
+        if isinstance(sceneData, int):
+            data['action_name'] = 'QR_SCENE'
+            data['action_info']['scene']['scene_id'] = sceneData
+        else:
+            data['action_name'] = 'QR_STR_SCENE'
+            data['action_info']['scene']['scene_str'] = sceneData
     else:
         if isinstance(sceneData, int):
             data['action_name'] = 'QR_LIMIT_SCENE'

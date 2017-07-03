@@ -14,9 +14,7 @@
 
 如果你需要你的二维码永不过期，设定`expire=False`即可。
 
-关于数据，如果你的二维码是会过期的，那数据可以是字符串或者是数字。
-
-否则的话只能是数字。
+数据类型为 `int` 或 `str` 详细说明可以参考[官方文档][mp-wiki]
 
 ```python
 r = itchatmp.utils.create_qrcode('test-tag', expire=5000)

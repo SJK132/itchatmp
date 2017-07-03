@@ -105,13 +105,22 @@ itchatmp.messages.send_all(TEXT, 'this is a sendall')
 ```python
 templateId = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 msgDict = {
-    'title': 'Title',
-    'user': 'User',
-    'content': 'Content', }
+    'title': {'value': 'Title'},
+    'user': {'value': 'User'},
+    'content': {'value': 'Content', 'color': '#173177'}, }
 toUserName = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
 r = itchatmp.templatemsgs.send(templateId, msgDict, toUserName)
 print(r)
 ```
+
+如果想在模版中加入可点链接, 在msgDict中加入url：
+```python
+msgDict = {
+    'title': {'value': 'Title'},
+    'user': {'value': 'User'},
+    'content': {'value': 'Content', 'color': '#173177'},
+    'url': 'www.github.com', }
+ ```
 
 [mp-wiki]: https://mp.weixin.qq.com/wiki

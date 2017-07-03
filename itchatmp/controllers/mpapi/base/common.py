@@ -81,7 +81,7 @@ class TokenClass(CoreMixin):
             self.core.ioLoop.call_later(r['expires_in'] - 30,
                 self.maintain_access_token, None)
     def maintain_access_token(self, firstCallResult=None):
-        t = threading.Thread(target=auto_maintain_thread,
+        t = threading.Thread(target=self.maintain_thread,
             args=(firstCallResult,))
         t.setDaemon(True)
         t.start()

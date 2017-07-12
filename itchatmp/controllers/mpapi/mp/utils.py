@@ -82,7 +82,7 @@ def download_qrcode(ticket):
                     tempStorage.write(block)
                 r = ReturnValue({'File': tempStorage, 'errcode': 0})
             return r
-    return _download_qrcode()
+    return _download_qrcode(ticket)
 
 def long_url_to_short(url, accessToken=None):
     data = {'action': 'long2short', 'long_url': url}

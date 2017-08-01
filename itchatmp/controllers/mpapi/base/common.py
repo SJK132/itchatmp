@@ -234,4 +234,4 @@ class ServerListClass(CoreMixin):
             if ipaddress.ip_address(request.remote_ip) in ipaddress.ip_network(CIDR):
                 return True
         return False
-        return request.remote_ip in self._serverList
+

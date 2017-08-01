@@ -1,4 +1,4 @@
-import functools, logging, time, threading, traceback
+import functools, logging, time, threading, traceback, ipaddress
 from datetime import datetime, timedelta
 
 from requests import get
@@ -210,8 +210,6 @@ class ServerListClass(CoreMixin):
                 result = ReturnValue(result.json())
                 if 'ip_list' in result:
                     result['errcode'] = 0
-                    for i, v in enumerate(result['ip_list']):
-                        result['ip_list'][i] = v[:v.rfind('/')]
                 return result
             r._wrap_result = _wrap_result
             return r
@@ -232,4 +230,8 @@ class ServerListClass(CoreMixin):
         if not self._serverList:
             logger.debug('Server list is loading, so ignore verifying once.')
             return True
+        for CIDR in self._serverList:
+            if ipaddress.ip_address(request.remote_ip) in ipaddress.ip_network(CIDR):
+                return True
+        return False
         return request.remote_ip in self._serverList

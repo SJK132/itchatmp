@@ -10,5 +10,7 @@ if COROUTINE:
 else:
     import requests
     requests.packages.urllib3.disable_warnings()
+    adapters = requests.adapters.HTTPAdapter(pool_connections=100, pool_maxsize=100)
     requests = requests.session()
+    requests.mount('https://', adapters)
     requests.verify = False

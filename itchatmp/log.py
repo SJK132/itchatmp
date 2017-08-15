@@ -31,6 +31,8 @@ class LogSystem(object):
                 self.fileHandler.close()
             if loggingFile is not None: # add new fileHandler
                 self.fileHandler = logging.FileHandler(loggingFile)
+                formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+                self.fileHandler.setFormatter(formatter)
                 self.logger.addHandler(self.fileHandler)
             self.loggingFile = loggingFile
         if loggingLevel != self.loggingLevel:
